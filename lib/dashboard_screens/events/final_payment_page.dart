@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 class FinalPaymentPage extends StatefulWidget {
   final CoinbaseCommerce coinbaseCommerce;
 
-  const FinalPaymentPage({Key key, this.coinbaseCommerce}) : super(key: key);
+  const FinalPaymentPage({Key? key, required this.coinbaseCommerce}) : super(key: key);
 
   @override
   _FinalPaymentPageState createState() => _FinalPaymentPageState();
@@ -25,7 +25,8 @@ class _FinalPaymentPageState extends State<FinalPaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.coinbaseCommerce.metadata.title),
+        title: Text(widget.coinbaseCommerce.metadata!.title!)
+        // title: Text(widget.coinbaseCommerce.metadata.title!)
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +38,7 @@ class _FinalPaymentPageState extends State<FinalPaymentPage> {
           Center(
             child: ElevatedButton(
                 onPressed: () {
-                  _launchURL(widget.coinbaseCommerce.hostedUrl);
+                  _launchURL(widget.coinbaseCommerce.hostedUrl!);
                 },
                 child: const Text("Proceed payment")),
           ),

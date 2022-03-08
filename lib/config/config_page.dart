@@ -1,4 +1,4 @@
-import 'package:crypto_raffle/services/dynamic_links_services.dart';
+// import 'package:crypto_raffle/services/dynamic_links_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_raffle/screens/address_page.dart';
@@ -18,17 +18,17 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
-  final DynamicServices _dynamicServices = DynamicServices();
+  // final DynamicServices _dynamicServices = DynamicServices();
 
   @override
   void initState() {
     super.initState();
-    initDynamicLinks();
+    // initDynamicLinks();
   }
 
-  void initDynamicLinks() async {
-    await _dynamicServices.handleDynamicLinks(context);
-  }
+  // void initDynamicLinks() async {
+  //   await _dynamicServices.handleDynamicLinks(context);
+  // }
 
 
 
@@ -52,7 +52,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   HomePage.routeName: (context) => const HomePage(),
                   "/account": (context) => const AccountScreen(),
                   AccountScreen.routeName: (context) => const AccountScreen(),
-                  ProfilePage.routeName: (context) => const ProfilePage(),
+                  // ProfilePage.routeName: (context) => const ProfilePage(),
                   AddressPage.routeName: (context) => const AddressPage(),
                 },
                 home: SplashScreenPage(userSnapshot: userSnapshot)

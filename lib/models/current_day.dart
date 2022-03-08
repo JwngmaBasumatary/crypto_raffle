@@ -1,12 +1,12 @@
 class CurrentDay {
-  String id;
-  String currentDateTime;
-  String utcOffset;
-  bool isDayLightSavingsTime;
-  String dayOfTheWeek;
-  String timeZoneName;
-  int currentFileTime;
-  String ordinalDate;
+  String? id;
+  String? currentDateTime;
+  String? utcOffset;
+  bool? isDayLightSavingsTime;
+  String? dayOfTheWeek;
+  String? timeZoneName;
+  int? currentFileTime;
+  String? ordinalDate;
 
   CurrentDay(
       {this.id,
@@ -32,7 +32,7 @@ class CurrentDay {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data[id] = id;
+    data[id!] = id;
     data['currentDateTime'] = currentDateTime;
     data['utcOffset'] = utcOffset;
     data['isDayLightSavingsTime'] = isDayLightSavingsTime;

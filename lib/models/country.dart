@@ -1,18 +1,18 @@
 class Country {
-  String status;
-  String country;
-  String countryCode;
-  String region;
-  String regionName;
-  String city;
-  String zip;
-  double lat;
-  double lon;
-  String timezone;
-  String isp;
-  String org;
-  String as;
-  String query;
+  String? status;
+  String? country;
+  String? countryCode;
+  String? region;
+  String? regionName;
+  String? city;
+  String? zip;
+  double? lat;
+  double? lon;
+  String? timezone;
+  String? isp;
+  String? org;
+  String? as;
+  String? query;
 
   Country(
       {this.status,

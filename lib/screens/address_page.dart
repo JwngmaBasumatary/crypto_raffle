@@ -4,7 +4,7 @@ import 'package:crypto_raffle/services/firestore_services.dart';
 import 'package:crypto_raffle/utils/validators.dart';
 import 'package:crypto_raffle/widgets/message_dialog_with_ok.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class AddressPage extends StatefulWidget {
@@ -22,11 +22,11 @@ class _AddressPageState extends State<AddressPage> {
 
   final TextEditingController coinAddressController = TextEditingController();
 
-  ProgressDialog progressDialog;
+  ProgressDialog? progressDialog;
   final FirestoreServices _fireStoreServices = FirestoreServices();
-  String coinAdd, _warning;
+  String? coinAdd, _warning;
   bool isLoginPressed = false;
-  CoinAddressModel addressModel;
+  CoinAddressModel? addressModel;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _AddressPageState extends State<AddressPage> {
   _getUserAddress() async {
     addressModel = await _fireStoreServices.getUserAddress();
     setState(() {
-      coinAddressController.text = addressModel.coinAddress;
+      coinAddressController.text = addressModel!.coinAddress;
     });
   }
 
@@ -48,13 +48,13 @@ class _AddressPageState extends State<AddressPage> {
     await progressDialog.show();
 
     CoinAddressModel addressModel = CoinAddressModel(
-      coinAddress: coinAdd,
+      coinAddress: coinAdd!,
     );
     await _fireStoreServices.updateAddress(context, addressModel).then((val) {
       progressDialog.hide();
       showDialog(
           context: context,
-          builder: (context) => const CustomDialogWithOk(
+          builder: (context) =>  CustomDialogWithOk(
                 title: "Wallet Address Updated",
                 description: "Your Wallet Addresses has been Updated,",
                 primaryButtonText: "Ok", primaryButtonRoute: '',

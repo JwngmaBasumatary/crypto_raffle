@@ -1,22 +1,22 @@
 class CoinbaseCommerce {
-  String code;
-  String createdAt;
-  String expiresAt;
-  String hostedUrl;
-  String id;
-  Metadata metadata;
-  String name;
-  Pricing pricing;
+  String? code;
+  String? createdAt;
+  String? expiresAt;
+  String? hostedUrl;
+  String? id;
+  Metadata? metadata;
+  String? name;
+  Pricing? pricing;
 
   CoinbaseCommerce(
-      {this.code,
-      this.createdAt,
-      this.expiresAt,
-      this.hostedUrl,
-      this.id,
-      this.metadata,
-      this.name,
-      this.pricing});
+      {required this.code,
+      required this.createdAt,
+      required this.expiresAt,
+      required this.hostedUrl,
+      required this.id,
+      required this.metadata,
+      required this.name,
+      required this.pricing});
 
   CoinbaseCommerce.fromJson(Map<String, dynamic> json) {
     code = json['code'];
@@ -39,33 +39,33 @@ class CoinbaseCommerce {
     data['hosted_url'] = hostedUrl;
     data['id'] = id;
     if (metadata != null) {
-      data['metadata'] = metadata.toJson();
+      data['metadata'] = metadata?.toJson();
     }
     data['name'] = name;
     if (pricing != null) {
-      data['pricing'] = pricing.toJson();
+      data['pricing'] = pricing?.toJson();
     }
     return data;
   }
 }
 
 class Metadata {
-  String uid;
-  String user;
-  String email;
-  String title;
-  String eventId;
-  String luckyNumber;
-  String date;
+  String? uid;
+  String? user;
+  String? email;
+  String? title;
+  String? eventId;
+  String? luckyNumber;
+  String? date;
 
   Metadata(
-      {this.uid,
-      this.user,
-      this.email,
-      this.title,
-      this.eventId,
-      this.luckyNumber,
-      this.date});
+      {required this.uid,
+      required this.user,
+      required this.email,
+      required this.title,
+      required this.eventId,
+      required this.luckyNumber,
+      required this.date});
 
   Metadata.fromJson(Map<String, dynamic> json) {
     uid = json['uid'];
@@ -91,10 +91,10 @@ class Metadata {
 }
 
 class Pricing {
-  String amount;
-  String currency;
+  String? amount;
+  String? currency;
 
-  Pricing({this.amount, this.currency});
+  Pricing({required this.amount, required this.currency});
 
   Pricing.fromJson(Map<String, dynamic> json) {
     amount = json['amount'];

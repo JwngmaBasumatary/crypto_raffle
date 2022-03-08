@@ -1,19 +1,19 @@
 class LiveEvent {
-  final String title;
-  final String coin;
-  final String time;
-  final String status;
-  final String img;
-  final bool entryClosed;
-  final num entryFee;
-  final num winnerPrize;
-  final int total;
-  final int participated;
-  final int eventId;
-  final String symbol;
-  final bool instant;
-  final String hash;
-  final String key;
+  final String? title;
+  final String? coin;
+  final String? time;
+  final String? status;
+  final String? img;
+  final bool? entryClosed;
+  final num? entryFee;
+  final num? winnerPrize;
+  final int? total;
+  final int? participated;
+  final int? eventId;
+  final String? symbol;
+  final bool? instant;
+  final String? hash;
+  final String? key;
 
   LiveEvent({
     this.title,
