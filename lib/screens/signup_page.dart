@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:crypto_raffle/screens/policy_page.dart';
 import 'package:crypto_raffle/services/firebase_auth_services.dart';
 import 'package:crypto_raffle/services/firestore_services.dart';
@@ -43,8 +43,6 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  String ? _warning;
-  bool termsAccepted = false;
 
 
   performLogin(FirebaseAuthServices auth) {
@@ -103,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final _width = MediaQuery.of(context).size.width;
     //bool isLoginPressed = true;
     return WillPopScope(
-      onWillPop: ()  async{
+
         return await showDialog(
             context: context,
             barrierDismissible: false,
@@ -184,7 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: <Widget>[
                           Checkbox(
                               value: termsAccepted,
-                              onChanged: (value) {
+
                                 setState(() {
                                   termsAccepted = value!;
                                 });
