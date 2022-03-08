@@ -22,6 +22,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   FirestoreServices firestoreServices = FirestoreServices();
   bool isLoginPressed = false;
+  bool termsAccepted = false;
 
   @override
   void initState() {
@@ -96,12 +97,12 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
     //bool isLoginPressed = true;
     return WillPopScope(
-
+onWillPop: ()async {
         return await showDialog(
             context: context,
             barrierDismissible: false,
@@ -183,9 +184,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           Checkbox(
                               value: termsAccepted,
 
-                                setState(() {
-                                  termsAccepted = value!;
-                                });
+                                 onChanged: (bool? value) {  setState(() {
+                                    termsAccepted = value!;
+                                  });
                               }),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
