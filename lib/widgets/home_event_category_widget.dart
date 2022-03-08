@@ -4,7 +4,7 @@ import 'package:crypto_raffle/utils/tools.dart';
 import 'package:flutter/material.dart';
 
 class HomeEventCategoryWidget extends StatefulWidget {
-  const HomeEventCategoryWidget({Key key}) : super(key: key);
+  const HomeEventCategoryWidget({Key? key}) : super(key: key);
 
   @override
   State<HomeEventCategoryWidget> createState() =>

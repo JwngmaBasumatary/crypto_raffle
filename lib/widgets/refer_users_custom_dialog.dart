@@ -14,12 +14,12 @@ class ReferUsersCustomDialog extends StatelessWidget {
   final grayColor = const Color(0xFF939393);
 
   const ReferUsersCustomDialog({
-    Key key,
-    @required this.title,
-    @required this.description,
-    @required this.primaryButtonText,
-    @required this.sharetext,
-    this.referralPrize,
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.primaryButtonText,
+    required this.sharetext,
+    required this.referralPrize,
   }) : super(key: key);
 
   @override

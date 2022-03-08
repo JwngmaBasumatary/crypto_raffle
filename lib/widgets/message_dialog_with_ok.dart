@@ -10,11 +10,11 @@ class CustomDialogWithOk extends StatelessWidget {
   final grayColor = const Color(0xFF939393);
 
   const CustomDialogWithOk(
-      {Key key,
-      this.title,
-      this.description,
-      this.primaryButtonText,
-      this.primaryButtonRoute})
+      {Key? key,
+      required this.title,
+      required this.description,
+      required this.primaryButtonText,
+      required this.primaryButtonRoute})
       : super(key: key);
 
   @override

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AdsBannerWidget extends StatefulWidget {
-  const AdsBannerWidget({Key key}) : super(key: key);
+  const AdsBannerWidget({Key? key}) : super(key: key);
 
   @override
   State<AdsBannerWidget> createState() => _AdsBannerWidgetState();
