@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ResultsPage extends StatefulWidget {
-  const ResultsPage({Key key}) : super(key: key);
+  const ResultsPage({Key? key}) : super(key: key);
 
   @override
   _ResultsPageState createState() => _ResultsPageState();

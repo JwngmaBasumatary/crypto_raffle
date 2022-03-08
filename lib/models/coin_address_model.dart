@@ -1,7 +1,7 @@
 class CoinAddressModel {
-  String coinAddress;
+  String? coinAddress;
 
-  CoinAddressModel({this.coinAddress});
+  CoinAddressModel({required this.coinAddress});
 
   CoinAddressModel.fromJson(Map<String, dynamic> json) {
     coinAddress = json['coinAddress'];

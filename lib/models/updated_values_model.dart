@@ -1,20 +1,20 @@
 class UpdatedValuesModel {
-  int points;
-  int clicksLeft;
-  int basicScratchLeft;
-  int silverScratchLeft;
-  int goldScratchLeft;
-  int ticTacToeLeft;
-  int mindGameLeft;
+  int? points;
+  int? clicksLeft;
+  int? basicScratchLeft;
+  int? silverScratchLeft;
+  int? goldScratchLeft;
+  int? ticTacToeLeft;
+  int? mindGameLeft;
 
   UpdatedValuesModel({
-    this.points,
-    this.clicksLeft,
-    this.basicScratchLeft,
-    this.silverScratchLeft,
-    this.goldScratchLeft,
-    this.ticTacToeLeft,
-    this.mindGameLeft,
+    required this.points,
+    required this.clicksLeft,
+    required this.basicScratchLeft,
+    required this.silverScratchLeft,
+    required this.goldScratchLeft,
+    required this.ticTacToeLeft,
+    required this.mindGameLeft,
   });
 
   UpdatedValuesModel.fromJson(Map<String, dynamic> json) {

@@ -53,11 +53,11 @@ class _AccountScreenState extends State<AccountScreen> {
         progressDialog.hide();
       }
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
     }
   }
 
-  AndroidDeviceInfo androidInfo;
+  AndroidDeviceInfo? androidInfo;
 
   Future getUserData() async {
     appdata = await firestoreServices.getAppData();
@@ -94,7 +94,7 @@ class _AccountScreenState extends State<AccountScreen> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [Colors.blue[100], Colors.blueGrey.shade50],
+          colors: [Colors.blue[100]!, Colors.blueGrey.shade50],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         )),
@@ -130,7 +130,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             child: CircleAvatar(
                               radius: 50,
                               backgroundImage: NetworkImage(
-                                  appdata != null ?  appdata.profilePhoto
+                                  appdata != null ?  appdata!.profilePhoto!
                                       : Constants.appLogoForDynamicLink),
                             )),
                         const SizedBox(
@@ -139,7 +139,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            appdata != null ? appdata.name : "",
+                            appdata != null ? appdata!.name! : "",
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -150,7 +150,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            appdata != null && appdata.email != "" ? appdata.email : "",
+                            appdata != null && appdata!.email != "" ? appdata!.email! : "",
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.normal,

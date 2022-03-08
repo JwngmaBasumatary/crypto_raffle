@@ -10,7 +10,7 @@ class EventDetailsPage extends StatefulWidget {
   final LiveEvent liveEvent;
   final EventType eventType;
 
-  const EventDetailsPage({Key key, this.liveEvent, this.eventType})
+  const EventDetailsPage({Key? key, required this.liveEvent, required this.eventType})
       : super(key: key);
 
   @override
@@ -110,7 +110,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                         height: 150,
                         width: MediaQuery.of(context).size.width,
                         child: Image.network(
-                          widget.liveEvent.img,
+                          widget.liveEvent.img!,
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -142,7 +142,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 3),
                               child: Text(
-                                widget.liveEvent.status,
+                                widget.liveEvent.status!,
                                 style: const TextStyle(color: Colors.white),
                               ),
                             )),
@@ -162,7 +162,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                             height: 5,
                           ),
                           Text(
-                            widget.liveEvent.title,
+                            widget.liveEvent.title!,
                             style: const TextStyle(
                                 fontSize: 22,
                                 color: Colors.red,
@@ -300,11 +300,11 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                           divisions: widget.liveEvent.total,
                                           label:
                                               "${widget.liveEvent.participated.toString()} Users Participated",
-                                          value: widget.liveEvent.participated
+                                          value: widget.liveEvent.participated!
                                               .toDouble(),
                                           onChanged: (value) {},
                                           max:
-                                              widget.liveEvent.total.toDouble(),
+                                              widget.liveEvent.total!.toDouble(),
                                         ),
                                         widget.liveEvent.status == "live"
                                             ? Row(
@@ -312,8 +312,8 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                                     MainAxisAlignment.center,
                                                 children: <Widget>[
                                                   widget.liveEvent
-                                                              .participated >=
-                                                          widget.liveEvent.total
+                                                              .participated! >=
+                                                          widget.liveEvent.total!
                                                       ? Container(
                                                           decoration: BoxDecoration(
                                                               borderRadius:
@@ -337,7 +337,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                                           ),
                                                         )
                                                       : Text(
-                                                          "${widget.liveEvent.total - widget.liveEvent.participated}",
+                                                          "${widget.liveEvent.total! - widget.liveEvent.participated!}",
                                                           style:
                                                               const TextStyle(
                                                                   color: Colors
@@ -347,8 +347,8 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                                     width: 5,
                                                   ),
                                                   widget.liveEvent
-                                                              .participated >=
-                                                          widget.liveEvent.total
+                                                              .participated! >=
+                                                          widget.liveEvent.total!
                                                       ? const Text("",
                                                           style: TextStyle(
                                                               color:

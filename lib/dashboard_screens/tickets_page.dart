@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TicketsPage extends StatefulWidget {
-  const TicketsPage({Key key}) : super(key: key);
+  const TicketsPage({Key? key}) : super(key: key);
 
   @override
   _TicketsPageState createState() => _TicketsPageState();

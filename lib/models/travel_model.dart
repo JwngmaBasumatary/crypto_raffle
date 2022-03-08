@@ -3,7 +3,7 @@ class HomeCarouselModel {
   final String location;
   final String url;
 
-  HomeCarouselModel({this.name, this.location, this.url});
+  HomeCarouselModel({required this.name, required this.location, required this.url});
 
   static List<HomeCarouselModel> generateTravelBlogs() {
     return [

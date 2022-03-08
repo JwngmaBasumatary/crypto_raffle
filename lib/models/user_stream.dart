@@ -1,14 +1,14 @@
 class UserStream {
-  int points;
-  int sumTimer;
-  int multiplyTimer;
-  String  email;
+  int? points;
+  int? sumTimer;
+  int? multiplyTimer;
+  String?  email;
 
   UserStream({
-    this.points,
-    this.sumTimer,
-    this.multiplyTimer,
-    this.email,
+    required this.points,
+    required this.sumTimer,
+    required this.multiplyTimer,
+    required this.email,
   });
 
   Map toMap(UserStream users) {

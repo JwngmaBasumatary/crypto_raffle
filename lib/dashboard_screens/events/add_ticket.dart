@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class AddTicket extends StatefulWidget {
-  const AddTicket({Key key, this.liveEvent, this.eventType}) : super(key: key);
+  const AddTicket({Key? key, required this.liveEvent, required this.eventType}) : super(key: key);
   final LiveEvent liveEvent;
   final EventType eventType;
 
@@ -323,10 +323,10 @@ class _AddTicketState extends State<AddTicket> {
 
                   await firebaseServices
                       .payWithCoinbase(
-                          amount: widget.liveEvent.entryFee,
+                          amount: widget.liveEvent.entryFee as int,
                           luckyNumber: selectedNumber,
-                          eventId: widget.liveEvent.eventId,
-                          eventTitle: widget.liveEvent.title)
+                          eventId: widget.liveEvent.eventId!,
+                          eventTitle: widget.liveEvent.title!)
                       .then((value) async {
                     await progressDialog.hide();
                     Navigator.of(context).push(MaterialPageRoute(
@@ -342,7 +342,7 @@ class _AddTicketState extends State<AddTicket> {
                 // Tools.showToasts(selectedRandom.toString());
 
                 firebaseServices.generatePaymentLink(
-                    10, 33, "", widget.liveEvent.eventId);
+                    10, 33, "", widget.liveEvent.eventId!);
               },
               child: const Text("Add Ticket"))
         ],

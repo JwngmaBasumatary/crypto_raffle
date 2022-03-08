@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 class EventsPage extends StatefulWidget {
   final EventType eventType;
 
-  const EventsPage({Key key, this.eventType}) : super(key: key);
+  const EventsPage({Key? key, required this.eventType}) : super(key: key);
 
   @override
   _EventsPageState createState() => _EventsPageState();
@@ -21,12 +21,12 @@ class _EventsPageState extends State<EventsPage> {
   bool showLoading = true;
   FirestoreServices fireStoreServices = FirestoreServices();
   FirebaseAuthServices authServices = FirebaseAuthServices();
-  Stream stream;
+  Stream? stream;
 
   @override
   void initState() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       // checkIfTodaysLeftClick();
       // getTheLiveEvents();
     });
@@ -35,7 +35,7 @@ class _EventsPageState extends State<EventsPage> {
 
   getTheLiveEvents() {
     fireStoreServices
-        .getLiveEvents(widget.eventType.eventCollectionName)
+        .getLiveEvents(widget.eventType.eventCollectionName!)
         .then((val) {
       setState(() {
         stream = val;
@@ -54,7 +54,7 @@ class _EventsPageState extends State<EventsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(widget.eventType.title),
+        title:  Text(widget.eventType.title!),
       ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -75,7 +75,7 @@ class _EventsPageState extends State<EventsPage> {
               ),
               StreamBuilder(
                   stream: stream,
-                  builder: (context, snapshots) {
+                  builder: (context,AsyncSnapshot snapshots) {
                     if (snapshots.hasData) {
                       if (snapshots.data.docs.isEmpty) {
                         return const Center(

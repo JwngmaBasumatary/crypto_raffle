@@ -60,7 +60,7 @@ class _CryptoEventsCardWidgetState extends State<CryptoEventsCardWidget> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(0),
                           child: Image.network(
-                            widget.liveEvent.img,
+                            widget.liveEvent.img!,
                             height: 20,
                             width: 20,
                             fit: BoxFit.fitWidth,
@@ -88,7 +88,7 @@ class _CryptoEventsCardWidgetState extends State<CryptoEventsCardWidget> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        widget.liveEvent.title,
+                        widget.liveEvent.title!,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),

@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -21,15 +21,15 @@ class _HomeScreenState extends State<HomeScreen>
   FirestoreServices fireStoreServices = FirestoreServices();
   FirebaseAuthServices authServices = FirebaseAuthServices();
   int totalUser = 0;
-  String lastNotifiedDate;
+  String? lastNotifiedDate;
   int points = 0;
 
-  Stream stream;
+  Stream? stream;
 
   @override
   void initState() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       // checkIfTodaysLeftClick();
       // getTheLiveEvents();
     });

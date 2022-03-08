@@ -1,11 +1,11 @@
 class EventType {
-  final String title;
-  final String img;
-  final num entryFee;
-  final num winnerPrize;
-  final num referralBonus;
-  final String eventCollectionName;
-  final String liveEventCollectionName;
+  final String? title;
+  final String? img;
+  final num? entryFee;
+  final num? winnerPrize;
+  final num? referralBonus;
+  final String? eventCollectionName;
+  final String? liveEventCollectionName;
 
   EventType(
       {this.title,

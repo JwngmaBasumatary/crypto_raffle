@@ -1,17 +1,17 @@
 class AccountData {
-  String profilePhoto;
-  String name;
-  String email;
-  String createdOn;
-  String lastLogin;
+  String? profilePhoto;
+  String? name;
+  String? email;
+  String? createdOn;
+  String? lastLogin;
 
   AccountData(
       {
-      this.email,
-      this.name,
-      this.createdOn,
-      this.lastLogin,
-      this.profilePhoto});
+      required this.email,
+      required this.name,
+      required this.createdOn,
+      required this.lastLogin,
+      required this.profilePhoto});
 
   AccountData.fromJson(Map<String, dynamic> json) {
     profilePhoto = json['profilePhoto'];
