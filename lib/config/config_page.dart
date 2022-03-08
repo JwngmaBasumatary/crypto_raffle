@@ -11,7 +11,7 @@ import 'package:crypto_raffle/services/firebase_auth_services.dart';
 import 'auth_widget_builder.dart';
 
 class ConfigPage extends StatefulWidget {
-  const ConfigPage({Key key}) : super(key: key);
+  const ConfigPage({Key? key}) : super(key: key);
 
   @override
   _ConfigPageState createState() => _ConfigPageState();

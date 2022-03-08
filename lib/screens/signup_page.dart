@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:crypto_raffle/screens/policy_page.dart';
 import 'package:crypto_raffle/services/firebase_auth_services.dart';
 import 'package:crypto_raffle/services/firestore_services.dart';
@@ -12,7 +12,7 @@ import 'package:crypto_raffle/widgets/show_loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -22,7 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
   FirestoreServices firestoreServices = FirestoreServices();
   bool isLoginPressed = false;
 
-  _SignUpPageState();
+  // _SignUpPageState();
 
   @override
   void initState() {
@@ -44,14 +44,14 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  String  _warning;
+  String?  _warning;
   bool termsAccepted = false;
 
   bool isValid() {
     final form = _formKey.currentState;
 
-    form.save();
-    if (form.validate()) {
+    form?.save();
+    if (form!.validate()) {
       form.save();
       return true;
     } else {
@@ -115,8 +115,8 @@ class _SignUpPageState extends State<SignUpPage> {
     final _width = MediaQuery.of(context).size.width;
     //bool isLoginPressed = true;
     return WillPopScope(
-      onWillPop: () {
-        return showDialog(
+      onWillPop: () async {
+        return await showDialog(
             context: context,
             barrierDismissible: false,
             builder: (BuildContext context) {
@@ -154,10 +154,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   end: Alignment.bottomLeft,
                   stops: const [0.1, 0.5, 0.7, 0.9],
                   colors: [
-                    Colors.blue[700],
-                    Colors.blue[500],
-                    Colors.blue[300],
-                    Colors.blue[100],
+                    Colors.blue[700]!,
+                    Colors.blue[500]!,
+                    Colors.blue[300]!,
+                    Colors.blue[100]!,
                   ],
                 ),
               ),
@@ -197,9 +197,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           Checkbox(
                               value: termsAccepted,
                               checkColor: Colors.black,
-                              onChanged: (bool value) {
+                              onChanged: (bool? value) {
                                 setState(() {
-                                  termsAccepted = value;
+                                  termsAccepted = value!;
                                 });
                               }),
                           Column(
