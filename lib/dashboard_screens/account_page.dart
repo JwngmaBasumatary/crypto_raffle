@@ -14,14 +14,14 @@ import 'package:progress_dialog/progress_dialog.dart';
 class AccountScreen extends StatefulWidget {
   static const String routeName = "/accountScreen";
 
-  const AccountScreen({Key key}) : super(key: key);
+  const AccountScreen({Key? key}) : super(key: key);
 
   @override
   _AccountScreenState createState() => _AccountScreenState();
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  AccountData appdata;
+  AccountData? appdata;
 
   var firestoreServices = FirestoreServices();
 
