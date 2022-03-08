@@ -6,7 +6,7 @@ class HomeCarouselWidget extends StatelessWidget {
   final _list = HomeCarouselModel.generateTravelBlogs();
   final _pageController = PageController(viewportFraction: 1);
 
-  HomeCarouselWidget({Key key}) : super(key: key);
+  HomeCarouselWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

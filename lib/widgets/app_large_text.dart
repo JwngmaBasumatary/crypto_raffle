@@ -6,7 +6,7 @@ class AppLargeText extends StatelessWidget {
   final Color color;
 
   const AppLargeText(
-      {Key key, this.size = 30,  this.text, this.color = Colors.black})
+      { Key? key, this.size = 30,  required this.text, this.color = Colors.black})
       : super(key: key);
 
   @override
