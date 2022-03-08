@@ -46,7 +46,7 @@ class _HomeEventCategoryWidgetState extends State<HomeEventCategoryWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        eventType.title,
+                        eventType.title!,
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 22,
