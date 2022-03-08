@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:crypto_raffle/utils/tools.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ import 'package:crypto_raffle/widgets/show_loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -21,8 +22,6 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   FirestoreServices firestoreServices = FirestoreServices();
   bool isLoginPressed = false;
-
-  _SignUpPageState();
 
   @override
   void initState() {
@@ -44,20 +43,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  String  _warning;
+  String ? _warning;
   bool termsAccepted = false;
 
-  bool isValid() {
-    final form = _formKey.currentState;
-
-    form.save();
-    if (form.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   performLogin(FirebaseAuthServices auth) {
     setState(() {
@@ -101,10 +89,10 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   bool isPresent(String countryName) {
-    showToast("Checking");
+    Tools.showToasts("Checking");
     var countries = listInValidCountries.toList();
     for (int i in countries) {
-      showToast(countries[i]);
+      Tools.showToasts(countries[i]);
     }
     return countries.contains(countryName);
   }
@@ -115,8 +103,8 @@ class _SignUpPageState extends State<SignUpPage> {
     final _width = MediaQuery.of(context).size.width;
     //bool isLoginPressed = true;
     return WillPopScope(
-      onWillPop: () {
-        return showDialog(
+      onWillPop: ()  async{
+        return await showDialog(
             context: context,
             barrierDismissible: false,
             builder: (BuildContext context) {
@@ -154,10 +142,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   end: Alignment.bottomLeft,
                   stops: const [0.1, 0.5, 0.7, 0.9],
                   colors: [
-                    Colors.blue[700],
-                    Colors.blue[500],
-                    Colors.blue[300],
-                    Colors.blue[100],
+                    Colors.blue[700]!,
+                    Colors.blue[500]!,
+                    Colors.blue[300]!,
+                    Colors.blue[100]!,
                   ],
                 ),
               ),
@@ -196,10 +184,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: <Widget>[
                           Checkbox(
                               value: termsAccepted,
-                              checkColor: Colors.black,
-                              onChanged: (bool value) {
+                              onChanged: (value) {
                                 setState(() {
-                                  termsAccepted = value;
+                                  termsAccepted = value!;
                                 });
                               }),
                           Column(
@@ -255,7 +242,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             final auth = FirebaseAuthServices();
                             performLogin(auth);
                           } else {
-                            showToast("Accept the Terms And Conditions");
+                            Tools.showToasts("Accept the Terms And Conditions");
                           }
                         }),
                       ),
@@ -285,16 +272,6 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
 
   _buildErrorWidget() {
     if (_warning != null) {
@@ -312,7 +289,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Expanded(
               child: AutoSizeText(
-                _warning,
+                _warning!,
                 maxLines: 3,
                 style: const TextStyle(color: Colors.red, fontSize: 16),
               ),

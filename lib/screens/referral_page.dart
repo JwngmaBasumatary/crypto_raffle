@@ -15,7 +15,7 @@ import 'package:shimmer/shimmer.dart';
 class ReferralPage extends StatefulWidget {
   static const String routeName = "/accountScreen";
 
-  const ReferralPage({Key key}) : super(key: key);
+  const ReferralPage({Key? key}) : super(key: key);
 
   @override
   _ReferralPageState createState() => _ReferralPageState();
@@ -135,7 +135,7 @@ class _ReferralPageState extends State<ReferralPage> {
                               style:
                                   ElevatedButton.styleFrom(primary: Colors.red),
                               onPressed: () async {
-                                generateReferralLink();
+                                //generateReferralLink();
                               },
                               child: const Text("Generate Referral Link"))
                           : ElevatedButton.icon(
@@ -290,7 +290,7 @@ class _ReferralPageState extends State<ReferralPage> {
     );
   }
 
-  generateReferralLink() async {
+  /*generateReferralLink() async {
     DynamicServices _dynamicServices = DynamicServices();
     FirestoreServices fireStoreServices = FirestoreServices();
     ProgressDialog progressDialog =
@@ -320,5 +320,5 @@ class _ReferralPageState extends State<ReferralPage> {
         });
       });
     });
-  }
+  }*/
 }

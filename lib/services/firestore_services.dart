@@ -9,7 +9,6 @@ import 'package:crypto_raffle/models/current_day.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:crypto_raffle/models/country.dart';
 import 'package:crypto_raffle/models/coin_address_model.dart';
 import 'package:crypto_raffle/models/users.dart';
@@ -25,7 +24,7 @@ class FirestoreServices {
     final user = auth.currentUser;
     return _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .collection(Constants.notifications)
         .orderBy("time", descending: false)
         .snapshots();
@@ -44,37 +43,37 @@ class FirestoreServices {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get('today'));
   }
 
   Future<UpdatedValuesModel> getUpdatedValues() async {
     final user = auth.currentUser;
-    return await _db.collection(Constants.users).doc(user.uid).get().then(
+    return await _db.collection(Constants.users).doc(user!.uid).get().then(
         (documentSnapshot) =>
-            UpdatedValuesModel.fromJson(documentSnapshot.data()));
+            UpdatedValuesModel.fromJson(documentSnapshot.data()!));
   }
 
   Future<AccountData> getAppData() async {
     final user = auth.currentUser;
-    return await _db.collection(Constants.users).doc(user.uid).get().then(
-        (documentSnapshot) => AccountData.fromJson(documentSnapshot.data()));
+    return await _db.collection(Constants.users).doc(user!.uid).get().then(
+        (documentSnapshot) => AccountData.fromJson(documentSnapshot.data()!));
   }
 
   Future<String> getReferralId(String docName) async {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get(docName));
   }
 
   Future<AccountData> getAccountData() async {
     final user = auth.currentUser;
-    return await _db.collection(Constants.users).doc(user.uid).get().then(
-        (documentSnapshot) => AccountData.fromJson(documentSnapshot.data()));
+    return await _db.collection(Constants.users).doc(user!.uid).get().then(
+        (documentSnapshot) => AccountData.fromJson(documentSnapshot.data()!));
   }
 
   Future addToday() async {
@@ -90,7 +89,7 @@ class FirestoreServices {
     map['version'] = Constants.releaseVersionCode;
     await FirebaseFirestore.instance
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .update(map)
         .then((value) {
       debugPrint("The Date  and Clicks Left is Updated");
@@ -104,7 +103,7 @@ class FirestoreServices {
     final user = auth.currentUser;
     var map = <String, dynamic>{};
     map[timerTitle] = DateTime.now().day;
-    await _db.collection(Constants.users).doc(user.uid).update(map);
+    await _db.collection(Constants.users).doc(user!.uid).update(map);
   }
 
   Future<List<DocumentSnapshot>> getTransactionss() async {
@@ -112,7 +111,7 @@ class FirestoreServices {
     List<DocumentSnapshot> _list = [];
     Query query = _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .collection(Constants.transactions)
         .orderBy("date", descending: false);
     QuerySnapshot querySnapshot = await query.get();
@@ -137,7 +136,7 @@ class FirestoreServices {
     List<DocumentSnapshot> _list = [];
     Query query = _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .collection(Constants.referral)
         .orderBy("createdOn", descending: false);
     QuerySnapshot querySnapshot = await query.get();
@@ -151,7 +150,7 @@ class FirestoreServices {
     debugPrint("Get Points is called");
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get('points'));
   }
@@ -179,7 +178,7 @@ class FirestoreServices {
     debugPrint("Get Clicks is called");
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get('clicks'));
   }
@@ -188,7 +187,7 @@ class FirestoreServices {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get('name'));
   }
@@ -197,21 +196,21 @@ class FirestoreServices {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get('name'));
   }
 
   Future getCurrentUid() async {
     final user = auth.currentUser;
-    return user.uid.toString();
+    return user!.uid.toString();
   }
 
   Future getCountry() async {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get('country'));
   }
@@ -220,7 +219,7 @@ class FirestoreServices {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get('coinbase_email'));
   }
@@ -229,23 +228,23 @@ class FirestoreServices {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
-        .then((documentSnapshot) => Users.fromMap(documentSnapshot.data()));
+        .then((documentSnapshot) => Users.fromMap(documentSnapshot.data()!));
   }
 
   Future<CoinAddressModel> getUserAddress() async {
     final user = auth.currentUser;
-    return await _db.collection(Constants.users).doc(user.uid).get().then(
+    return await _db.collection(Constants.users).doc(user!.uid).get().then(
         (documentSnapshot) =>
-            CoinAddressModel.fromJson(documentSnapshot.data()));
+            CoinAddressModel.fromJson(documentSnapshot.data()!));
   }
 
   Future addPoints(int points) async {
     final user = auth.currentUser;
     var map = <String, dynamic>{};
     map['points'] = points;
-    await _db.collection(Constants.users).doc(user.uid).update({
+    await _db.collection(Constants.users).doc(user!.uid).update({
       "points": FieldValue.increment(points),
       "clicks": FieldValue.increment(1),
       "clicks_left": FieldValue.increment(-1),
@@ -258,7 +257,7 @@ class FirestoreServices {
     final user = auth.currentUser;
     var map = <String, dynamic>{};
     map['points'] = points;
-    await _db.collection(Constants.users).doc(user.uid).update({
+    await _db.collection(Constants.users).doc(user!.uid).update({
       "points": FieldValue.increment(points),
       "clicks": FieldValue.increment(1),
       clicksLeft: FieldValue.increment(-1),
@@ -289,7 +288,7 @@ class FirestoreServices {
     //update to user Database
     final user = auth.currentUser;
     // String uid = await Constants.prefs.getString(Constants.uid);
-    await _db.collection(Constants.users).doc(user.uid).update({
+    await _db.collection(Constants.users).doc(user!.uid).update({
       "points": 0,
       "clicks": 0,
     }).then((val) async {
@@ -337,7 +336,7 @@ class FirestoreServices {
 
     await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .update(userMap)
         .then((val) {
       debugPrint("User profile Updated");
@@ -355,7 +354,7 @@ class FirestoreServices {
 
     await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .update(addressMap)
         .then((val) {
       debugPrint("User Address Updated");
@@ -378,7 +377,7 @@ class FirestoreServices {
           .doc(
               "${DateTime.now().year.toString()}_${DateTime.now().month.toString()}_$week")
           .update({
-        "participants": FieldValue.arrayUnion([user.uid])
+        "participants": FieldValue.arrayUnion([user!.uid])
       });
     } else {
       await _db
@@ -386,7 +385,7 @@ class FirestoreServices {
           .doc(
               "${DateTime.now().year.toString()}_${DateTime.now().month.toString()}_$week")
           .set({
-        "participants": FieldValue.arrayUnion([user.uid])
+        "participants": FieldValue.arrayUnion([user!.uid])
       });
     }
   }
@@ -395,7 +394,7 @@ class FirestoreServices {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get('email'));
   }
@@ -410,7 +409,6 @@ class FirestoreServices {
     debugPrint(jsonResponse);
     return Country.fromJson(jsonResponse);
   }
-
 
   Future<CurrentDay> getCurrentDay() async {
     String url = "https://worldclockapi.com/api/json/est/now";
@@ -427,9 +425,9 @@ class FirestoreServices {
 
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
-        .then((value) => value.data()[timerTitle]);
+        .then((value) => value.data()![timerTitle]);
   }
 
   Future<List<DocumentSnapshot>> getTopUsers() async {
@@ -453,14 +451,14 @@ class FirestoreServices {
         .collection(Constants.users)
         .doc(uid)
         .snapshots()
-        .map((event) => UserStream.fromMap(event.data()));
+        .map((event) => UserStream.fromMap(event.data()!));
   }
 
   Future setReferralLink(String refLink) async {
     final user = auth.currentUser;
     var referalMap = <String, dynamic>{};
     referalMap['referralId'] = refLink;
-    await _db.collection(Constants.users).doc(user.uid).update(referalMap);
+    await _db.collection(Constants.users).doc(user!.uid).update(referalMap);
   }
 
   Future getLastClicked(String timerTitle) async {
@@ -468,7 +466,7 @@ class FirestoreServices {
     final user = auth.currentUser;
     return await _db
         .collection(Constants.users)
-        .doc(user.uid)
+        .doc(user!.uid)
         .get()
         .then((documentSnapshot) => documentSnapshot.get(timerTitle));
   }
@@ -483,7 +481,7 @@ class FirestoreServices {
 
   Future getUserInfo() async {
     final user = auth.currentUser;
-    return await _db.collection(Constants.users).doc(user.uid).get();
+    return await _db.collection(Constants.users).doc(user!.uid).get();
   }
 
   Future<CoinbaseCommerce> generatePaymentLink(
@@ -495,7 +493,7 @@ class FirestoreServices {
       "Accept": "application/json",
       "Content-Type": "application/x-www-form-urlencoded"
     }, body: {
-      "name": user.displayName,
+      "name": user!.displayName,
       "description": " This is Entry Fee for the Event",
       "uid": user.uid,
       "email": user.email,
@@ -510,7 +508,11 @@ class FirestoreServices {
     return CoinbaseCommerce.fromJson(jsonResponse);
   }
 
-  Future<CoinbaseCommerce> payWithCoinbase({int amount, int luckyNumber, String eventTitle, int eventId}) async {
+  Future<CoinbaseCommerce> payWithCoinbase(
+      {required int amount,
+      required int luckyNumber,
+      required String eventTitle,
+      required int eventId}) async {
     String url =
         "https://herokumainserver.herokuapp.com/api/v1/coinbaseCommerce/pay";
     final http.Response response = await http.post(
@@ -539,7 +541,7 @@ class FirestoreServices {
     final user = auth.currentUser;
 
     var paymentProofMap = <String, dynamic>{};
-    paymentProofMap["uid"] = user.uid;
+    paymentProofMap["uid"] = user!.uid;
     paymentProofMap["url"] = url;
     paymentProofMap["status"] = "pending";
     paymentProofMap['date'] = DateTime.now().toIso8601String();
@@ -563,12 +565,5 @@ class FirestoreServices {
 }
 
 _showError(BuildContext context) {
-  Fluttertoast.showToast(
-      msg: "Error Occured, Please Try Again",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0);
+  Tools.showToasts("Error Occured, Please Try Again");
 }

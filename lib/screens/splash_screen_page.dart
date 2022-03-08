@@ -1,13 +1,12 @@
 import 'package:crypto_raffle/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:crypto_raffle/config/auth_widget.dart';
 import 'package:crypto_raffle/services/firebase_auth_services.dart';
 
 class SplashScreenPage extends StatefulWidget {
   final AsyncSnapshot<User> userSnapshot;
 
-  const SplashScreenPage({Key key, this.userSnapshot}) : super(key: key);
+  const SplashScreenPage({Key ?key, required this.userSnapshot}) : super(key: key);
 
   @override
   _SplashScreenPageState createState() => _SplashScreenPageState();
@@ -46,10 +45,10 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
                   ),
                 ),
               ),
-              Center(
+              const Center(
                 child: Text(
                   Constants.appName,
-                  style: GoogleFonts.abhayaLibre(
+                  style: TextStyle(
                       color: Colors.black, fontSize: 35),
                 ),
               ),

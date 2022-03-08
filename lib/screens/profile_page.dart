@@ -11,7 +11,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 class ProfilePage extends StatefulWidget {
   static const String routeName = "/ProfilePage";
 
-  const ProfilePage({Key key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();

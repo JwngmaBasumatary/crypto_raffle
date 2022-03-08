@@ -3,7 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:crypto_raffle/utils/constants.dart';
 
 class NoInternet extends StatelessWidget {
-  const NoInternet({Key key}) : super(key: key);
+  const NoInternet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:crypto_raffle/utils/constants.dart';
 
 class PolicyPage extends StatefulWidget {
   static const String routeName = "/PolicyPage";
 
-  const PolicyPage({Key key}) : super(key: key);
+  const PolicyPage({Key? key}) : super(key: key);
   @override
   _PolicyPageState createState() => _PolicyPageState();
 }
@@ -23,76 +22,76 @@ class _PolicyPageState extends State<PolicyPage> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
+            children: const <Widget>[
               Text("Privacy Policy",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.privacy),
-              const SizedBox(
+              Text(Constants.privacy),
+              SizedBox(
                 height: 5,
               ),
               Text("Information Collection and Use",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.informationCollection),
-              const SizedBox(
+              Text(Constants.informationCollection),
+              SizedBox(
                 height: 5,
               ),
               Text("Log Data",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.logData),
-              const SizedBox(
+              Text(Constants.logData),
+              SizedBox(
                 height: 5,
               ),
               Text("Cookies",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.cookies),
-              const SizedBox(
+              Text(Constants.cookies),
+              SizedBox(
                 height: 5,
               ),
               Text("Service Providers",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.servicesProvider),
-              const SizedBox(
+              Text(Constants.servicesProvider),
+              SizedBox(
                 height: 5,
               ),
               Text("Security",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.security),
-              const SizedBox(
+              Text(Constants.security),
+              SizedBox(
                 height: 5,
               ),
               Text("Links to Other Sites",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.linksToOthers),
-              const SizedBox(
+              Text(Constants.linksToOthers),
+              SizedBox(
                 height: 5,
               ),
               Text("Changes to This Privacy Policy",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.changesToPolicies),
-              const SizedBox(
+              Text(Constants.changesToPolicies),
+              SizedBox(
                 height: 5,
               ),
               Text("Contact Us",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.oranienbaum(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text(Constants.contactUsTextForPolicy),
+              Text(Constants.contactUsTextForPolicy),
             ],
           ),
         ),
