@@ -13,7 +13,7 @@ import 'package:crypto_raffle/services/firestore_services.dart';
 class AuthWidgetBuilder extends StatelessWidget {
   final Widget Function(BuildContext, AsyncSnapshot<User>) builder;
 
-  const AuthWidgetBuilder({Key key, this.builder}) : super(key: key);
+  const AuthWidgetBuilder({Key? key, required this.builder}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class AuthWidgetBuilder extends StatelessWidget {
                     ),
                     StreamProvider(
                         create: (BuildContext context) =>
-                            firestoreServices.getUserData(user.uid)),
+                            firestoreServices.getUserData(user.uid), initialData: null,),
                   ],
                   child: builder(context, snapshot),
                 );

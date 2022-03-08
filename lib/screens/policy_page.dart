@@ -5,7 +5,7 @@ import 'package:crypto_raffle/utils/constants.dart';
 class PolicyPage extends StatefulWidget {
   static const String routeName = "/PolicyPage";
 
-  const PolicyPage({Key key}) : super(key: key);
+  const PolicyPage({Key? key}) : super(key: key);
   @override
   _PolicyPageState createState() => _PolicyPageState();
 }
