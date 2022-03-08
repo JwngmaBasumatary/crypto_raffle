@@ -1,0 +1,190 @@
+{
+  "project_info": {
+    "project_number": "1073350661400",
+    "project_id": "esports-tournament-app-de5e8",
+    "storage_bucket": "esports-tournament-app-de5e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073350661400:android:b7c4c5b0addfc04ec3fa6d",
+        "android_client_info": {
+          "package_name": "com.cfa.crypto_raffle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073350661400-qk91g8b375cuc5tgmksnsrvsjibn129l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfa.crypto_raffle",
+            "certificate_hash": "3f2db4bb86fb04ab6b9b12e0f6697ab263181b5a"
+          }
+        },
+        {
+          "client_id": "1073350661400-vbl6sh3h9mgrsf05r9684s467s4bphbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfa.crypto_raffle",
+            "certificate_hash": "f0897a0af3b4bfe886ca58494cc033b00bb571bb"
+          }
+        },
+        {
+          "client_id": "1073350661400-80pfu9639j6drse1flj4t2fpe4dhiu6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVRmgeYZb2kGY0LDhxGpzh_8zc3GZS618"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073350661400-80pfu9639j6drse1flj4t2fpe4dhiu6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073350661400:android:b9502df18130d19ac3fa6d",
+        "android_client_info": {
+          "package_name": "com.cfa.esports_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073350661400-u1d3b79f32l6s0263m441rqirrd5sqh0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfa.esports_admin",
+            "certificate_hash": "f0897a0af3b4bfe886ca58494cc033b00bb571bb"
+          }
+        },
+        {
+          "client_id": "1073350661400-80pfu9639j6drse1flj4t2fpe4dhiu6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVRmgeYZb2kGY0LDhxGpzh_8zc3GZS618"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073350661400-80pfu9639j6drse1flj4t2fpe4dhiu6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073350661400:android:bd4d9a5c1f0bfb82c3fa6d",
+        "android_client_info": {
+          "package_name": "com.cfa.esports_india"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073350661400-i1l6ul8m2dbk9mh8t60j9d2213p3eahg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfa.esports_india",
+            "certificate_hash": "f0897a0af3b4bfe886ca58494cc033b00bb571bb"
+          }
+        },
+        {
+          "client_id": "1073350661400-nq9rg2cq2451mk3lf0qe7as9otlvmmnt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfa.esports_india",
+            "certificate_hash": "9393826cc5c547f5cb58ce9c75c1b79e0810f9f9"
+          }
+        },
+        {
+          "client_id": "1073350661400-80pfu9639j6drse1flj4t2fpe4dhiu6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVRmgeYZb2kGY0LDhxGpzh_8zc3GZS618"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073350661400-80pfu9639j6drse1flj4t2fpe4dhiu6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073350661400:android:f8fbcbd8a5303debc3fa6d",
+        "android_client_info": {
+          "package_name": "com.cfa.esports_tournaments"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073350661400-js7jl5sd4eiu4dj3hj7k73m8vr2oc49g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfa.esports_tournaments",
+            "certificate_hash": "1058ff9f019650d2cf400e32ef9f118cea4151a3"
+          }
+        },
+        {
+          "client_id": "1073350661400-mprsn5sspnaeo3mnl3kgcvsub0mro0k1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfa.esports_tournaments",
+            "certificate_hash": "8fc9ffa958405be8293b651a26303dd04d166938"
+          }
+        },
+        {
+          "client_id": "1073350661400-o1o46ul8d7vv5p86bbahap4qbefa3bcr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfa.esports_tournaments",
+            "certificate_hash": "f0897a0af3b4bfe886ca58494cc033b00bb571bb"
+          }
+        },
+        {
+          "client_id": "1073350661400-80pfu9639j6drse1flj4t2fpe4dhiu6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVRmgeYZb2kGY0LDhxGpzh_8zc3GZS618"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073350661400-80pfu9639j6drse1flj4t2fpe4dhiu6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
