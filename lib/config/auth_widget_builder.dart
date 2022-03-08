@@ -37,17 +37,6 @@ class AuthWidgetBuilder extends StatelessWidget {
                     Provider<FirestoreServices>(
                       create: (_) => FirestoreServices(),
                     ),
-                    Provider<AllNotifier>(
-                      create: (_) => AllNotifier(),
-                    ),
-                    Provider<AllNotifier>(
-                      create: (_) => AllNotifier(),
-                      child: const SignUpPage(),
-                    ),
-                    ChangeNotifierProvider<AllNotifier>(
-                      create: (context) => AllNotifier(),
-                      child: const SignUpPage(),
-                    ),
                     ChangeNotifierProvider(
                       create: (context) => ConnectivityProvider(),
                       child: const HomePage(),

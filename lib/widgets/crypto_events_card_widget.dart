@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 
 class CryptoEventsCardWidget extends StatefulWidget {
   const CryptoEventsCardWidget(
-      {Key key,
-      this.liveEvent,
-      this.color,
-      this.index,
-      this.docId,
-      this.eventType})
+      {Key? key,
+     required this.liveEvent,
+     required this.color,
+     required this.index,
+     required this.docId,
+     required this.eventType})
       : super(key: key);
   final LiveEvent liveEvent;
   final EventType eventType;

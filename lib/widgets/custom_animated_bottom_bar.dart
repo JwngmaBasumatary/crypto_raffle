@@ -3,17 +3,17 @@ import 'package:flutter/widgets.dart';
 
 class CustomAnimatedBottomBar extends StatelessWidget {
   const CustomAnimatedBottomBar({
-    Key key,
+    Key? key,
     this.selectedIndex = 0,
     this.showElevation = true,
     this.iconSize = 24,
-    this.backgroundColor,
+    required this.backgroundColor,
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
-    this.items,
-    this.onItemSelected,
+    required this.items,
+    required this.onItemSelected,
     this.curve = Curves.linear,
   })  : assert(items.length >= 2 && items.length <= 5),
         super(key: key);
@@ -84,13 +84,13 @@ class _ItemWidget extends StatelessWidget {
   final Curve curve;
 
   const _ItemWidget({
-    Key key,
-    this.item,
-    this.isSelected,
-    this.backgroundColor,
-    this.animationDuration,
-    this.itemCornerRadius,
-    this.iconSize,
+    Key? key,
+    required this.item,
+    required this.isSelected,
+    required this.backgroundColor,
+    required this.animationDuration,
+    required this.itemCornerRadius,
+    required this.iconSize,
     this.curve = Curves.linear,
   }) : super(key: key);
 
@@ -155,11 +155,11 @@ class _ItemWidget extends StatelessWidget {
 
 class BottomNavyBarItem {
   BottomNavyBarItem({
-    this.icon,
-    this.title,
+   required  this.icon,
+    required this.title,
     this.activeColor = Colors.blue,
-    this.textAlign,
-    this.inactiveColor,
+   required  this.textAlign,
+   required  this.inactiveColor,
   });
 
   final Widget icon;

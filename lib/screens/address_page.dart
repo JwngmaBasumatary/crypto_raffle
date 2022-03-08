@@ -41,16 +41,7 @@ class _AddressPageState extends State<AddressPage> {
     });
   }
 
-  // showToastt(String message) {
-  //   Fluttertoast.showToast(
-  //       msg: message,
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.CENTER,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: Colors.red,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0);
-  // }
+
 
   updateAddress(BuildContext context, ProgressDialog progressDialog) async {
     progressDialog = ProgressDialog(context);
@@ -66,7 +57,7 @@ class _AddressPageState extends State<AddressPage> {
           builder: (context) =>  CustomDialogWithOk(
                 title: "Wallet Address Updated",
                 description: "Your Wallet Addresses has been Updated,",
-                primaryButtonText: "Ok",
+                primaryButtonText: "Ok", primaryButtonRoute: '',
                 //primaryButtonRoute: RedeemScreen.routeName,
               ));
     });

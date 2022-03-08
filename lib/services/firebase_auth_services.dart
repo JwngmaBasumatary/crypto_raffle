@@ -7,12 +7,13 @@ import 'package:crypto_raffle/utils/tools.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ntp/ntp.dart';
 
 @immutable
 class User {
   final String uid;
 
-  const User({@required this.uid});
+  const User({required this.uid});
 }
 
 class FirebaseAuthServices {
@@ -23,7 +24,7 @@ class FirebaseAuthServices {
   Users users = Users();
 
   User _userFromFirebase(user) {
-    return user == null ? null : User(uid: user.uid);
+    return User(uid: user.uid);
   }
 
   Stream<User> get onAuthStateChanged {
@@ -39,22 +40,29 @@ class FirebaseAuthServices {
     return _firebaseAuth.signOut();
   }
 
-  Future<UserCredential> signInWithGoogle() async {
-    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    final UserCredential user =
-        await _firebaseAuth.signInWithCredential(credential);
-    return user;
+  Future signInWithGoogle(
+      BuildContext context, CommonProviders commonProvider) async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      Tools.showDebugPrint(credential.token.toString());
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      commonProvider
+          .setLoginError("You have Encounterred Error While Logging In $e");
+      commonProvider.setIsLoading();
+    }
   }
 
   Future<bool> authenticateUser(UserCredential firebaseUser) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(Constants.users)
-        .where("email", isEqualTo: firebaseUser.user.email)
+        .where("email", isEqualTo: firebaseUser.user!.email)
         .get();
 
     List<DocumentSnapshot> docs = querySnapshot.docs;
@@ -65,10 +73,8 @@ class FirebaseAuthServices {
   }
 
   Future<void> addToDb(UserCredential currentUser, String refId) async {
-    String username = Tools.getUsername(currentUser.user.email);
-    debugPrint(username);
-    var firebaseMessaging = FirebaseMessaging.instance;
-    String token = await firebaseMessaging.getToken();
+    var firebaseMessageing = FirebaseMessaging.instance;
+    String? token = await firebaseMessageing.getToken();
 /*    String country = await firestoreServices
         .getCountryForSignup()
         .then((value) => value.country);
@@ -76,11 +82,11 @@ class FirebaseAuthServices {
 
     debugPrint(" Your id Token -$token");
     users = Users(
-        uid: currentUser.user.uid,
-        email: currentUser.user.email,
-        name: currentUser.user.displayName,
+        uid: currentUser.user!.uid,
+        email: currentUser.user!.email!,
+        name: currentUser.user!.displayName!,
         points: 0,
-        idToken: token,
+        idToken: token!,
         today: DateTime.now().day,
         claimed: 0,
         referralId: "",
@@ -89,13 +95,13 @@ class FirebaseAuthServices {
         createdOn: DateTime.now().toIso8601String(),
         lastLogin: DateTime.now().toIso8601String(),
         //country: country,
-        profilePhoto: currentUser.user.photoURL);
+        profilePhoto: currentUser.user!.photoURL!);
 
     var referralMap = <String, dynamic>{};
-    referralMap['name'] = currentUser.user.displayName;
-    referralMap['email'] = currentUser.user.email;
-    referralMap['uid'] = currentUser.user.uid;
-    referralMap['profilePhoto'] = currentUser.user.photoURL;
+    referralMap['name'] = currentUser.user!.displayName;
+    referralMap['email'] = currentUser.user!.email;
+    referralMap['uid'] = currentUser.user!.uid;
+    referralMap['profilePhoto'] = currentUser.user!.photoURL;
     referralMap['createdOn'] = DateTime.now().toIso8601String();
 
     var userMap = <String, dynamic>{};
@@ -110,7 +116,7 @@ class FirebaseAuthServices {
     if (refId != "") {
       await FirebaseFirestore.instance
           .collection(Constants.users)
-          .doc(currentUser.user.uid)
+          .doc(currentUser.user!.uid)
           .set(users.toMap(users))
           .then((value) async {
         await FirebaseFirestore.instance
@@ -120,7 +126,7 @@ class FirebaseAuthServices {
             .then((value) async {
           await FirebaseFirestore.instance
               .collection(Constants.users)
-              .doc(currentUser.user.uid)
+              .doc(currentUser.user!.uid)
               .collection(Constants.notifications)
               .doc()
               .set(userWelcomeNotificationMap)
@@ -129,7 +135,7 @@ class FirebaseAuthServices {
                 .collection(Constants.users)
                 .doc(refId)
                 .collection("Referral")
-                .doc(currentUser.user.uid)
+                .doc(currentUser.user!.uid)
                 .set(referralMap);
           });
         });
@@ -137,7 +143,7 @@ class FirebaseAuthServices {
     } else {
       await FirebaseFirestore.instance
           .collection(Constants.users)
-          .doc(currentUser.user.uid)
+          .doc(currentUser.user!.uid)
           .set(users.toMap(users))
           .then((value) async {
         await FirebaseFirestore.instance
@@ -147,7 +153,7 @@ class FirebaseAuthServices {
             .then((value) async {
           await FirebaseFirestore.instance
               .collection(Constants.users)
-              .doc(currentUser.user.uid)
+              .doc(currentUser.user!.uid)
               .collection(Constants.notifications)
               .doc()
               .set(userWelcomeNotificationMap);
@@ -157,22 +163,20 @@ class FirebaseAuthServices {
   }
 
   Future<void> updateIdToken(UserCredential currentUser) async {
-    String email = Tools.getUsername(currentUser.user.email);
-    debugPrint(email);
-
     var firebaseMessaging = FirebaseMessaging.instance;
+    DateTime ntpDT = await NTP.now();
 
-    String token = await firebaseMessaging.getToken();
+    String? token = await firebaseMessaging.getToken();
     debugPrint(" The New id Token -$token");
     var map = <String, dynamic>{};
     map['idToken'] = token;
-    map['today'] = DateTime.now().day;
-    map['lastLogin'] = DateTime.now().toIso8601String();
+    map['today'] = ntpDT.day;
+    map['lastLogin'] = FieldValue.serverTimestamp();
     map["version"] = Constants.releaseVersionCode;
 
     await FirebaseFirestore.instance
         .collection(Constants.users)
-        .doc(currentUser.user.uid)
+        .doc(currentUser.user!.uid)
         .update(map);
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:bot_toast/bot_toast.dart';
 class Tools {
   static Color hetToColor(String code) {
     return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
@@ -18,15 +17,17 @@ class Tools {
     return email.split('@')[0];
   }
 
- static showToasts(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
+  static showDebugPrint(String message) {
+    debugPrint("Console : $message");
+  }
+  static showToasts(String message) {
+    BotToast.showText(
+        text: message,
+        duration: const Duration(seconds: 2),
+        contentColor: Colors.black,
+        contentPadding:
+        const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        textStyle: const TextStyle(fontSize: 20, color: Colors.white, letterSpacing: 1.2));
   }
 
 }
