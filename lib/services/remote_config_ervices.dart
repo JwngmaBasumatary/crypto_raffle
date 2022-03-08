@@ -74,7 +74,7 @@ class RemoteConfigServices {
 
   Future<String> checkLatestVersion() async {
     final RemoteConfig remoteConfig = RemoteConfig.instance;
-    String requiredString;
+    String requiredString="";
     try {
       await remoteConfig.setConfigSettings(RemoteConfigSettings(
         fetchTimeout: const Duration(seconds: 10),

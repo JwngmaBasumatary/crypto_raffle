@@ -8,14 +8,14 @@ import 'package:crypto_raffle/widgets/show_loading.dart';
 
 
 class AnnouncementPage extends StatefulWidget {
-  const AnnouncementPage({Key key}) : super(key: key);
+  const AnnouncementPage({Key? key}) : super(key: key);
 
   @override
   _AnnouncementPageState createState() => _AnnouncementPageState();
 }
 
 class _AnnouncementPageState extends State<AnnouncementPage> {
-  Stream stream;
+  Stream? stream;
   FirestoreServices fireStoreServices = FirestoreServices();
   bool showLoading = true;
 
@@ -48,7 +48,7 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
         builder: (context) => NotificationDialogWithOk(
               title: title,
               description: message,
-              primaryButtonText: "Ok",
+              primaryButtonText: "Ok", primaryButtonRoute: '',
             ));
   }
 
@@ -74,7 +74,7 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
                         children: <Widget>[
                           StreamBuilder(
                               stream: stream,
-                              builder: (context, snapshots) {
+                              builder: (context,AsyncSnapshot snapshots) {
                                 return snapshots.data == null
                                     ? showLoadingDialog()
                                     : ListView.builder(

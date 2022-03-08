@@ -1,14 +1,14 @@
 
 import 'package:crypto_raffle/services/firestore_services.dart';
 import 'package:crypto_raffle/utils/constants.dart';
+import 'package:crypto_raffle/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 class HelpPage extends StatefulWidget {
   static const String routeName = "HelpPage";
 
-  const HelpPage({Key key}) : super(key: key);
+  const HelpPage({Key? key}) : super(key: key);
 
   @override
   _HelpPageState createState() => _HelpPageState();
@@ -27,20 +27,7 @@ class _HelpPageState extends State<HelpPage> {
     //
   }
 
-  showInterstitialAds() {
-    //
-  }
 
-  showToastt(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -110,7 +97,7 @@ class _HelpPageState extends State<HelpPage> {
                         var out = Uri.encodeFull(emailUrl);
                         await _launchURL(out);
                       } else {
-                        showToastt("Fill the Both Fields");
+                        Tools.showToasts("Fill the Both Fields");
                       }
                     },
                     child: const Text(

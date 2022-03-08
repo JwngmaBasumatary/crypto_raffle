@@ -1,16 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:crypto_raffle/services/remote_config_ervices.dart';
 import 'package:crypto_raffle/services/firestore_services.dart';
+import 'package:crypto_raffle/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crypto_raffle/utils/constants.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutUsScreen extends StatefulWidget {
-  const AboutUsScreen({Key key}) : super(key: key);
+  const AboutUsScreen({Key? key}) : super(key: key);
 
   @override
   _AboutUsScreenState createState() => _AboutUsScreenState();
@@ -53,22 +53,11 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       }
     }
 
-    showToasts(String message) {
-      Fluttertoast.showToast(
-          msg: message,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-
     _launchTelegram(String url) async {
       if (await canLaunch(url)) {
         await launch(url);
       } else {
-        showToasts("You Do not hyave Telegram Installed");
+        Tools.showToasts("You Do not hyave Telegram Installed");
         throw 'Could not launch $url';
       }
     }

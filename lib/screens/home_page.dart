@@ -7,7 +7,6 @@ import 'package:crypto_raffle/widgets/custom_animated_bottom_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:crypto_raffle/providers/connectivity_provider.dart';
 import 'package:crypto_raffle/screens/no_internet.dart';
 import 'package:crypto_raffle/services/firestore_services.dart';
@@ -42,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     try {
       versionCheck(context);
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
     }
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
@@ -51,8 +50,8 @@ class _HomePageState extends State<HomePage> {
       showDialog(
           context: context,
           builder: (context) => CustomDialogWithOk(
-                title: event.notification.body,
-                description: event.notification.body,
+                title: event.notification!.body!,
+                description: event.notification!.body!,
                 primaryButtonText: "Ok",
                 primaryButtonRoute: HomePage.routeName,
               ));
@@ -153,8 +152,8 @@ class _HomePageState extends State<HomePage> {
         if (model.isOnline != null) {
           return model.isOnline
               ? WillPopScope(
-                  onWillPop: () {
-                    return showDialog(
+                  onWillPop: () async{
+                    return await showDialog(
                         context: context,
                         barrierDismissible: false,
                         builder: (BuildContext context) {
@@ -341,8 +340,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )
               : WillPopScope(
-                  onWillPop: () {
-                    return showDialog(
+                  onWillPop: () async {
+                    return await showDialog(
                         context: context,
                         barrierDismissible: false,
                         builder: (BuildContext context) {
@@ -377,6 +376,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+/*
 final Map<String, MessageBean> _items = <String, MessageBean>{};
 
 MessageBean _itemForMessage(Map<String, dynamic> message) {
@@ -505,3 +505,4 @@ class _DetailPageState extends State<DetailPage> {
         fontSize: 16.0);
   }
 }
+*/

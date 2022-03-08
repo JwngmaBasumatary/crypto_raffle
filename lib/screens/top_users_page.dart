@@ -6,11 +6,10 @@ import 'package:crypto_raffle/widgets/shimmer_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TopUsersPage extends StatefulWidget {
-  const TopUsersPage({Key key}) : super(key: key);
+  const TopUsersPage({Key? key}) : super(key: key);
 
   @override
   _TopUsersPageState createState() => _TopUsersPageState();
@@ -186,16 +185,5 @@ class _TopUsersPageState extends State<TopUsersPage> {
             ),
           ),
         ));
-  }
-
-  showToastt(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 }
