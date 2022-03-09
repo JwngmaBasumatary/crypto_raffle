@@ -399,15 +399,14 @@ class FirestoreServices {
         .then((documentSnapshot) => documentSnapshot.get('email'));
   }
 
-  Future<Country> getCountryForSignup() async {
+  Future<String?> getCountryForSignup() async {
     String url = "http://ip-api.com/json";
     var response = await http.get(
       Uri.parse(url),
     );
     var jsonResponse = json.decode(response.body);
-    //Tools.showToasts(jsonResponse);
-    debugPrint(jsonResponse);
-    return Country.fromJson(jsonResponse);
+    // debugPrint(jsonResponse);
+    return Country.fromJson(jsonResponse).country;
   }
 
   Future<CurrentDay> getCurrentDay() async {

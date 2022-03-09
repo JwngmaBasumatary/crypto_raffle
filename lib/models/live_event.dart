@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class LiveEvent {
   final String? title;
   final String? coin;
-  final String? time;
+  final Timestamp? time;
   final String? status;
   final String? img;
   final bool? entryClosed;

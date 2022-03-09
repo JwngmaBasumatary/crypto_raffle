@@ -23,9 +23,7 @@ class Constants {
   static const String appWebsite = "https://crypto_raffle.blogspot.com";
   static const String paymentLink =
       "https://herokumainserver.herokuapp.com/api/v1/coinbaseCommerce/pay";
-  static const String appLogoForDynamicLink =
-      "https://firebasestorage.googleapis.com/v0/b/litcoin-faucet-d6170.appspot.com/o/solana_logo.png?alt=media&token=045f6bfd-d587-4464-b439-075d3fbea966";
-
+  static const String appLogoForDynamicLink = "https://firebasestorage.googleapis.com/v0/b/esports-tournament-app-de5e8.appspot.com/o/crypto_raffle_logo.png?alt=media&token=de7bacc9-4b8c-4879-8b94-268eacc8ad50";
   //rewards per claim for basic users
   static const int claimReward = 50;
   static const int giveAwayReward = 10000;
@@ -104,6 +102,7 @@ class Constants {
 
   // this is string to connect to db
   static const String users = "crypto_raffle_Users";
+  static const String generalInformations = "Crypto_Raffle_GeneralInfomations";
   static const String liveEvents = "Crypto_Raffle_events";
   static const String weeklyEvent = "crypto_raffle_WeeklyEvent";
   static const String weeklyGiveAwayWinners =

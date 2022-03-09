@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AccountData {
   String? profilePhoto;
   String? name;
   String? email;
-  String? createdOn;
-  String? lastLogin;
+  Timestamp? createdOn;
+  Timestamp? lastLogin;
 
   AccountData(
       {

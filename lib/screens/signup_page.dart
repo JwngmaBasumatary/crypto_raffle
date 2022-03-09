@@ -1,15 +1,21 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:crypto_raffle/utils/tools.dart';
-import 'package:flutter/services.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
+import 'package:crypto_raffle/providers/common_providers.dart';
 import 'package:crypto_raffle/screens/policy_page.dart';
 import 'package:crypto_raffle/services/firebase_auth_services.dart';
 import 'package:crypto_raffle/services/firestore_services.dart';
 import 'package:crypto_raffle/utils/constants.dart';
+import 'package:crypto_raffle/utils/tools.dart';
 import 'package:crypto_raffle/widgets/show_loading.dart';
+import 'package:crypto_raffle/services/firestore_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -22,16 +28,18 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   FirestoreServices firestoreServices = FirestoreServices();
   bool isLoginPressed = false;
+
+  String? email;
+  String? password;
   bool termsAccepted = false;
 
   @override
   void initState() {
     super.initState();
-    //getInValidCountries();
+
     getTheREfId();
   }
 
-  var listInValidCountries = [];
 
   var refId = "";
 
@@ -39,33 +47,121 @@ class _SignUpPageState extends State<SignUpPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     refId = prefs.getString("refId") ?? "";
     debugPrint("Ref Id is $refId");
-   // Tools.showToasts(refId);
+    // Tools.showToasts(refId);
     setState(() {});
   }
 
-  final _formKey = GlobalKey<FormState>();
-
-
-  performLogin(FirebaseAuthServices auth) {
-    setState(() {
-      isLoginPressed = true;
-    });
-    auth.signInWithGoogle().then((user) {
-      if (user != null) {
-        autheticateUser(user, auth);
-      } else {
-        setState(() {
-          isLoginPressed = false;
+  performEmailPasswordSignup(
+      FirebaseAuthServices auth, CommonProviders commonProvider) {
+    commonProvider.setIsLoading();
+    auth
+        .createAccountWithEmailAndPassword(
+        "smkbty@gmail.comm", "123456", context, commonProvider)
+        .then((user) {
+      //debugPrint("User Signed in Already , now have to store to db ${user.user!.email}");
+      if (user.user!.uid != "") {
+        // debugPrint("Started the process of storing ${user.user!.email}");
+        auth.checkIfUserAlreadyExist(user).then((isUserNew) {
+          commonProvider.setIsLoading();
+          commonProvider.setLoginError("");
+          debugPrint("User is ${isUserNew.toString()}");
+          if (isUserNew) {
+            auth.addToDb(user, refId).then((value) {
+              debugPrint(
+                  "New User ! Welcome to the App. User is Added to the Database");
+            });
+          } else {
+            auth.updateIdToken(user).then((value) {
+              debugPrint(
+                  "Old User ! Welcome Back to the App. User Token is Updated to the Database");
+            });
+            debugPrint(
+                "Old User ! Welcome Back to the App. User Token is Updated to the Database");
+          }
         });
-        _warning = "We have Encountered an Error. Please Try Again";
-        debugPrint("Error Occured During Loin");
+      } else {
+        commonProvider.setIsLoading();
+        commonProvider
+            .setLoginError("We have Encountered an Error. Please Try Again");
+      }
+    });
+  }
+
+  performEmailPasswordSignIn(
+      FirebaseAuthServices auth, CommonProviders commonProvider) {
+    commonProvider.setIsLoading();
+    auth
+        .createAccountWithEmailAndPassword(
+        "smkbty@gmail.comm", "123456", context, commonProvider)
+        .then((user) {
+      //debugPrint("User Signed in Already , now have to store to db ${user.user!.email}");
+      if (user.user!.uid != "") {
+        // debugPrint("Started the process of storing ${user.user!.email}");
+        auth.checkIfUserAlreadyExist(user).then((isUserNew) {
+          commonProvider.setIsLoading();
+          commonProvider.setLoginError("");
+          debugPrint("User is ${isUserNew.toString()}");
+          if (isUserNew) {
+            auth.addToDb(user, refId).then((value) {
+              debugPrint(
+                  "New User ! Welcome to the App. User is Added to the Database");
+            });
+          } else {
+            auth.updateIdToken(user).then((value) {
+              debugPrint(
+                  "Old User ! Welcome Back to the App. User Token is Updated to the Database");
+            });
+            debugPrint(
+                "Old User ! Welcome Back to the App. User Token is Updated to the Database");
+          }
+        });
+      } else {
+        commonProvider.setIsLoading();
+        commonProvider
+            .setLoginError("We have Encountered an Error. Please Try Again");
+      }
+    });
+  }
+
+  performGoogleLogin(
+      FirebaseAuthServices auth, CommonProviders commonProvider) {
+    commonProvider.setIsLoading();
+    auth.signInWithGoogle(context, commonProvider).then((user) {
+      debugPrint(
+          "User Signed in Already , now have to store to db $user");
+
+      if (user != null) {
+        debugPrint("Started the process of storing ${user.user!.email}");
+        auth.checkIfUserAlreadyExist(user).then((isUserNew) {
+          commonProvider.setIsLoading();
+          commonProvider.setLoginError("");
+          debugPrint("User is ${isUserNew.toString()}");
+          if (isUserNew) {
+            auth.addToDb(user, refId).then((value) {
+              debugPrint(
+                  "New User ! Welcome to the App. User is Added to the Database");
+            });
+          } else {
+            auth.updateIdToken(user).then((value) {
+              debugPrint(
+                  "Old User ! Welcome Back to the App. User Token is Updated to the Database");
+            });
+            debugPrint(
+                "Old User ! Welcome Back to the App. User Token is Updated to the Database");
+          }
+        });
+      } else {
+        Tools.showDebugPrint("Error in Sign In or Sign up");
+        commonProvider.setIsLoading();
+        commonProvider
+            .setLoginError("We have Encountered an Error. Please Try Again");
       }
     });
   }
 
   autheticateUser(UserCredential user, FirebaseAuthServices auth) {
-    if (user != null) {
-      auth.authenticateUser(user).then((isNewUser) {
+    if (user.toString().isNotEmpty) {
+      auth.checkIfUserAlreadyExist(user).then((isNewUser) {
         isLoginPressed = false;
         debugPrint("User is ${isNewUser.toString()}");
         if (isNewUser) {
@@ -87,22 +183,14 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  bool isPresent(String countryName) {
-    Tools.showToasts("Checking");
-    var countries = listInValidCountries.toList();
-    for (int i in countries) {
-      Tools.showToasts(countries[i]);
-    }
-    return countries.contains(countryName);
-  }
-
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
+    var commonProvider = Provider.of<CommonProviders>(context, listen: false);
     //bool isLoginPressed = true;
     return WillPopScope(
-onWillPop: ()async {
+      onWillPop: () async {
         return await showDialog(
             context: context,
             barrierDismissible: false,
@@ -128,133 +216,141 @@ onWillPop: ()async {
             });
       },
       child: Scaffold(
-        backgroundColor: Colors.white70,
         body: Stack(
           children: <Widget>[
             Container(
-
               height: _height,
               width: _width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  stops: const [0.1, 0.5, 0.7, 0.9],
-                  colors: [
-                    Colors.blue[700]!,
-                    Colors.blue[500]!,
-                    Colors.blue[300]!,
-                    Colors.blue[100]!,
-                  ],
-                ),
-              ),
+              color: Colors.black,
               child: SafeArea(
                   child: Padding(
-                padding:
+                    padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      _buildErrorWidget(),
-                      SizedBox(
-                        height: _height * 0.05,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(15),
-                        child: CircleAvatar(
-                          radius:80,
-                          backgroundImage: AssetImage(Constants.appLogo),
-                        ),
-                      ),
-                      buildHeadingAutoSizeText(),
-                      SizedBox(
-                        height: _height * 0.1,
-                      ),
-                      const Text(
-                        "Welcome to ${Constants.appName}, you are on the right place to earn ${Constants.coinName} easily.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(
-                        height: _height * 0.05,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: <Widget>[
-                          Checkbox(
-                              value: termsAccepted,
-
-                                 onChanged: (bool? value) {  setState(() {
-                                    termsAccepted = value!;
-                                  });
+                          Consumer<CommonProviders>(
+                              builder: (_, commonProvider, child) {
+                                return commonProvider.loginError != ""
+                                    ? _buildErrorWidget(
+                                    commonProvider.loginError, commonProvider)
+                                    : const SizedBox.shrink();
                               }),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return const PolicyPage();
-                                  }));
-                                },
-                                child: RichText(
-                                  text: const TextSpan(
-                                    text: '',
-                                    style: TextStyle(color: Colors.red),
-                                    /*defining default style is optional */
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text:
-                                              ' I have read, understood and agree',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black)),
-                                      TextSpan(
-                                          text: ' \n to the  ',
-                                          style: TextStyle(
-                                              color: Colors.black)),
-                                      TextSpan(
-                                        text: 'Terms of use.',
-                                        style: TextStyle(
-                                            color: Colors.red,
-                                            decoration:
-                                                TextDecoration.underline),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                          SizedBox(
+                            height: _height * 0.05,
+                          ),
+                          const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(15),
+                              child: CircleAvatar(
+                                radius: 80,
+                                backgroundImage: AssetImage(Constants.appLogo),
                               ),
+                            ),
+                          ),
+                          buildHeadingAutoSizeText(),
+                          SizedBox(
+                            height: _height * 0.1,
+                          ),
+                          const Text(
+                            "Welcome to ${Constants.appName}, you are on the right place to earn ${Constants.coinName} easily.",
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: _height * 0.05,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Checkbox(
+                                  value: termsAccepted,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      termsAccepted = value!;
+                                    });
+                                  }),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                            return const PolicyPage();
+                                          }));
+                                    },
+                                    child: RichText(
+                                      text: const TextSpan(
+                                        text: '',
+                                        style: TextStyle(color: Colors.red),
+                                        /*defining default style is optional */
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text:
+                                              ' I have read, understood and agree',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.lightGreenAccent)),
+                                          TextSpan(
+                                              text: ' \n to the  ',
+                                              style: TextStyle(
+                                                  color: Colors.lightGreenAccent)),
+                                          TextSpan(
+                                            text: 'Terms of use.',
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                decoration:
+                                                TextDecoration.underline),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
-                          )
+                          ),
+                          SizedBox(
+                            height: _height * 0.1,
+                          ),
+                          Visibility(
+                            visible: true,
+                            child: SignInButton(
+                              Buttons.Google,
+                              onPressed: () async {
+                                if (termsAccepted) {
+                                  final auth = Provider.of<FirebaseAuthServices>(
+                                      context,
+                                      listen: false);
+                                  try {
+                                    performGoogleLogin(auth, commonProvider);
+                                  } catch (error) {
+                                    commonProvider.setLoginError(error as String);
+                                  }
+                                } else {
+                                  Tools.showToasts(
+                                      "Accept the Terms And Conditions");
+                                }
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: _height * 0.05,
+                          ),
+                          refId != ""
+                              ? Text("Referred By :-  $refId")
+                              : const SizedBox()
                         ],
                       ),
-                      SizedBox(
-                        height: _height * 0.1,
-                      ),
-                      Visibility(
-                        visible: true,
-                        child: GoogleSignInButton(
-                            splashColor: Colors.red,
-                            onPressed: () async {
-                          if (termsAccepted) {
-                            final auth = FirebaseAuthServices();
-                            performLogin(auth);
-                          } else {
-                            Tools.showToasts("Accept the Terms And Conditions");
-                          }
-                        }),
-                      ),
-                      SizedBox(
-                        height: _height * 0.05,
-                      ),
-                      refId != "" ? Text("Referred By :-  $refId") : const SizedBox()
-                    ],
-                  ),
-                ),
-              )),
+                    ),
+                  )),
             ),
-            isLoginPressed ? showLoadingDialog() : const SizedBox.shrink(),
+            Consumer<CommonProviders>(builder: (_, commonProvider, child) {
+              return commonProvider.isLoading
+                  ? showLoadingDialog()
+                  : const SizedBox.shrink();
+            }),
+            // isLoginPressed ? showLoadingDialog() : const SizedBox.shrink(),
           ],
         ),
       ),
@@ -271,43 +367,43 @@ onWillPop: ()async {
     );
   }
 
-
-  _buildErrorWidget() {
-    if (_warning != null) {
-      return Container(
-        color: Colors.yellow,
-        width: double.infinity,
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child:
-                  IconButton(icon: const Icon(Icons.error_outline), onPressed: () {}),
+  _buildErrorWidget(String errorMessage, CommonProviders commonProvider) {
+    return Container(
+      color: Colors.yellow,
+      width: double.infinity,
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+                icon: const Icon(
+                  Icons.error_outline,
+                  color: Colors.black,
+                ),
+                onPressed: () {}),
+          ),
+          Expanded(
+            child: AutoSizeText(
+              errorMessage,
+              maxLines: 3,
+              style: const TextStyle(color: Colors.red, fontSize: 16),
             ),
-            Expanded(
-              child: AutoSizeText(
-                _warning!,
-                maxLines: 3,
-                style: const TextStyle(color: Colors.red, fontSize: 16),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    setState(() {
-                      _warning = null;
-                    });
-                  }),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return const SizedBox.shrink();
-    }
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: IconButton(
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  commonProvider.setLoginError("");
+                }),
+          ),
+        ],
+      ),
+    );
   }
 }

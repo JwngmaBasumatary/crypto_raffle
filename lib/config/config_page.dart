@@ -1,4 +1,5 @@
 // import 'package:crypto_raffle/services/dynamic_links_services.dart';
+import 'package:crypto_raffle/providers/common_providers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_raffle/screens/address_page.dart';
@@ -37,27 +38,35 @@ class _ConfigPageState extends State<ConfigPage> {
     return FutureBuilder(
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
-        return Provider<FirebaseAuthServices>(
-          create: (_) => FirebaseAuthServices(),
-          child: AuthWidgetBuilder(builder: (context, userSnapshot) {
-            return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  scaffoldBackgroundColor: Colors.white,
-                  primaryColor: Colors.white,
-                  //accentColor: Colors.green,
-                ),
-                routes: {
-                  "/home": (context) => const HomePage(),
-                  HomePage.routeName: (context) => const HomePage(),
-                  "/account": (context) => const AccountScreen(),
-                  AccountScreen.routeName: (context) => const AccountScreen(),
-                  // ProfilePage.routeName: (context) => const ProfilePage(),
-                  AddressPage.routeName: (context) => const AddressPage(),
-                },
-                home: SplashScreenPage(userSnapshot: userSnapshot)
-            );
-          }),
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider<CommonProviders>(
+                create: (_) => CommonProviders()),
+            Provider<FirebaseAuthServices>(
+                create: (_) => FirebaseAuthServices())
+          ],
+          child: Provider<FirebaseAuthServices>(
+            create: (_) => FirebaseAuthServices(),
+            child: AuthWidgetBuilder(builder: (context, userSnapshot) {
+              return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData(
+                    scaffoldBackgroundColor: Colors.white,
+                    primaryColor: Colors.white,
+                    //accentColor: Colors.green,
+                  ),
+                  routes: {
+                    "/home": (context) => const HomePage(),
+                    HomePage.routeName: (context) => const HomePage(),
+                    "/account": (context) => const AccountScreen(),
+                    AccountScreen.routeName: (context) => const AccountScreen(),
+                    // ProfilePage.routeName: (context) => const ProfilePage(),
+                    AddressPage.routeName: (context) => const AddressPage(),
+                  },
+                  home: SplashScreenPage(userSnapshot: userSnapshot)
+              );
+            }),
+          ),
         );
       },
     );

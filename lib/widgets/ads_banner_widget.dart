@@ -24,10 +24,17 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
   int _currentPage = 0;
 
   @override
-  void initState() {
-    super.initState();
-   autoScroll();
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    autoScroll();
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //  autoScroll();
+  // }
 
   autoScroll() {
     Timer.periodic(
@@ -39,11 +46,14 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
           _currentPage = 0;
         }
 
-        _pageController.animateToPage(
-          _currentPage,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeIn,
-        );
+        if(_pageController.hasClients){
+    _pageController.animateToPage(
+    _currentPage,
+    duration: const Duration(milliseconds: 500),
+    curve: Curves.easeIn,
+    );
+    }
+
       },
     );
   }

@@ -2,6 +2,7 @@ import 'package:crypto_raffle/models/account_data.dart';
 import 'package:crypto_raffle/services/firebase_auth_services.dart';
 import 'package:crypto_raffle/services/firestore_services.dart';
 import 'package:crypto_raffle/utils/constants.dart';
+import 'package:crypto_raffle/utils/tools.dart';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:legacy_progress_dialog/legacy_progress_dialog.dart';
+// import 'package:progress_dialog/progress_dialog.dart';
 
 class AccountScreen extends StatefulWidget {
   static const String routeName = "/accountScreen";
@@ -33,24 +35,29 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   Future<void> _signOut(BuildContext context) async {
-    ProgressDialog progressDialog =
-        ProgressDialog(context, isDismissible: false);
+    Tools.showDebugPrint("Sign out is called!!");
+    ProgressDialog progressDialog = ProgressDialog(
+      context: context,
+      backgroundColor: Colors.grey,
+      textColor: Colors.white,
+    );
+
+    progressDialog.show();
     var firebaseAuthServices = FirebaseAuthServices();
-    await progressDialog.show();
     try {
       GoogleSignIn _googleSignIn = GoogleSignIn();
 
       final _firebaseAuth = FirebaseAuth.instance;
 
-      progressDialog.hide();
+      progressDialog.dismiss();
       if (_googleSignIn != null) {
         debugPrint("Google is called");
         await firebaseAuthServices.signOutWhenGoogle();
-        progressDialog.hide();
+        progressDialog.dismiss();
       } else {
         debugPrint("Auth is Called");
         await _firebaseAuth.signOut();
-        progressDialog.hide();
+        progressDialog.dismiss();
       }
     } catch (e) {
       debugPrint(e.toString());

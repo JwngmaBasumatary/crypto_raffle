@@ -138,15 +138,15 @@ class _CryptoEventsCardWidgetState extends State<CryptoEventsCardWidget> {
                                 value: double.parse(
                                     widget.liveEvent.participated.toString()),
                                 onChanged: (value) {},
-                                max: widget.liveEvent.total.toDouble(),
+                                max: widget.liveEvent.total!.toDouble(),
                               ),
                               widget.liveEvent.status == "live"
                                   ? Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                        widget.liveEvent.participated >=
-                                                widget.liveEvent.total
+                                        widget.liveEvent.participated! >=
+                                                widget.liveEvent.total!
                                             ? Container(
                                                 decoration: BoxDecoration(
                                                     borderRadius:
@@ -163,15 +163,15 @@ class _CryptoEventsCardWidgetState extends State<CryptoEventsCardWidget> {
                                                 ),
                                               )
                                             : Text(
-                                                "${widget.liveEvent.total - widget.liveEvent.participated} / ${widget.liveEvent.total}",
+                                                "${widget.liveEvent.total! - widget.liveEvent.participated!} / ${widget.liveEvent.total}",
                                                 style: const TextStyle(
                                                     color: Colors.black45),
                                               ),
                                         const SizedBox(
                                           width: 5,
                                         ),
-                                        widget.liveEvent.participated >=
-                                                widget.liveEvent.total
+                                        widget.liveEvent.participated! >=
+                                                widget.liveEvent.total!
                                             ? const Text("",
                                                 style: TextStyle(
                                                     color: Colors.red))
@@ -215,7 +215,7 @@ class _CryptoEventsCardWidgetState extends State<CryptoEventsCardWidget> {
                             ),*/
                       ],
                     ),
-                    widget.liveEvent.participated < widget.liveEvent.total
+                    widget.liveEvent.participated! < widget.liveEvent.total!
                         ? GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(

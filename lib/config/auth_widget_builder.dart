@@ -1,3 +1,4 @@
+import 'package:crypto_raffle/providers/common_providers.dart';
 import 'package:crypto_raffle/screens/signup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +26,7 @@ class AuthWidgetBuilder extends StatelessWidget {
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
         return StreamBuilder<User>(
-            stream: authServices?.onAuthStateChanged,
+            stream: authServices.onAuthStateChanged,
             builder: (context, snapshot) {
               final user = snapshot.data;
               if (user != null) {
@@ -37,6 +38,8 @@ class AuthWidgetBuilder extends StatelessWidget {
                     Provider<FirestoreServices>(
                       create: (_) => FirestoreServices(),
                     ),
+                    ChangeNotifierProvider<CommonProviders>(
+                        create: (_) => CommonProviders()),
                     ChangeNotifierProvider(
                       create: (context) => ConnectivityProvider(),
                       child: const HomePage(),

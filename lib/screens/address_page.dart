@@ -4,8 +4,8 @@ import 'package:crypto_raffle/services/firestore_services.dart';
 import 'package:crypto_raffle/utils/validators.dart';
 import 'package:crypto_raffle/widgets/message_dialog_with_ok.dart';
 import 'package:flutter/material.dart';
+import 'package:legacy_progress_dialog/legacy_progress_dialog.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 
 class AddressPage extends StatefulWidget {
   static const String routeName = "/AddressPage";
@@ -37,21 +37,26 @@ class _AddressPageState extends State<AddressPage> {
   _getUserAddress() async {
     addressModel = await _fireStoreServices.getUserAddress();
     setState(() {
-      coinAddressController.text = addressModel!.coinAddress;
+      coinAddressController.text = addressModel!.coinAddress!;
     });
   }
 
 
 
-  updateAddress(BuildContext context, ProgressDialog progressDialog) async {
-    progressDialog = ProgressDialog(context);
-    await progressDialog.show();
+  updateAddress(BuildContext context) async {
+    ProgressDialog progressDialog = ProgressDialog(
+      context: context,
+      backgroundColor: Colors.grey,
+      textColor: Colors.white,
+    );
+
+    progressDialog.show();
 
     CoinAddressModel addressModel = CoinAddressModel(
       coinAddress: coinAdd!,
     );
     await _fireStoreServices.updateAddress(context, addressModel).then((val) {
-      progressDialog.hide();
+      progressDialog.dismiss();
       showDialog(
           context: context,
           builder: (context) =>  CustomDialogWithOk(
@@ -167,7 +172,7 @@ class _AddressPageState extends State<AddressPage> {
   bool isValid() {
     final form = _formKey.currentState;
 
-    form.save();
+    form!.save();
     if (form.validate()) {
       form.save();
       return true;
@@ -179,16 +184,16 @@ class _AddressPageState extends State<AddressPage> {
   void submit(BuildContext context) async {
     if (isValid()) {
       try {
-        updateAddress(context, progressDialog);
+        updateAddress(context);
       } catch (error) {
         setState(() {
-          _warning = error.message;
+          _warning = error.toString();
           isLoginPressed = false;
         });
-        debugPrint(error);
+        debugPrint(error.toString());
       }
     } else {
-      showToastt("Please Enter A valid Address");
+      // showToastt("Please Enter A valid Address");
     }
   }
 
@@ -222,12 +227,12 @@ class _AddressPageState extends State<AddressPage> {
 
     textfields.add(TextFormField(
       style: const TextStyle(fontSize: 22),
-      validator: EmailValidator.validate,
+      // validator: EmailValidator.validate,
       controller: coinAddressController,
       enabled: true,
       decoration: buildSignUpinputDecoration("Enter Your coinbase email"),
       keyboardType: TextInputType.text,
-      onSaved: (String value) => coinAdd = value,
+      onSaved: (String? value) => coinAdd = value,
     ));
     textfields.add(const SizedBox(
       height: 5,
@@ -267,7 +272,7 @@ class _AddressPageState extends State<AddressPage> {
             ),
             Expanded(
               child: AutoSizeText(
-                _warning,
+                _warning!,
                 maxLines: 3,
                 style: const TextStyle(color: Colors.red, fontSize: 16),
               ),

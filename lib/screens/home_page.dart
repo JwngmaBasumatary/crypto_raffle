@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:crypto_raffle/dashboard_screens/results_page.dart';
 import 'package:crypto_raffle/dashboard_screens/tickets_page.dart';
 import 'package:crypto_raffle/dashboard_screens/account_page.dart';
+import 'package:crypto_raffle/providers/common_providers.dart';
+import 'package:crypto_raffle/services/firebase_auth_services.dart';
 import 'package:crypto_raffle/services/remote_config_ervices.dart';
 import 'package:crypto_raffle/widgets/custom_animated_bottom_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -15,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crypto_raffle/widgets/message_dialog_with_ok.dart';
+import 'package:legacy_progress_dialog/legacy_progress_dialog.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,6 +36,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const playStoreUrl = Constants.appLink;
   FirestoreServices fireStoreServices = FirestoreServices();
+  FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
 
   var selectedIndex = 0;
 
@@ -58,7 +62,7 @@ class _HomePageState extends State<HomePage> {
     });
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       debugPrint("onLaunch: $message");
-      _navigateToItemDetail(message);
+      // _navigateToItemDetail(message);
     });
     super.initState();
   }
@@ -72,21 +76,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   //PRIVATE METHOD TO HANDLE NAVIGATION TO SPECIFIC PAGE
-  void _navigateToItemDetail(message) {
-    final MessageBean item = _itemForMessage(message);
-    // Clear away dialogs
-    Navigator.popUntil(context, (Route<dynamic> route) => route is PageRoute);
-
-    if (item.itemId != "1") {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-        return const HomePage();
-      }));
-    }
-
-    if (!item.route.isCurrent) {
-      Navigator.push(context, item.route);
-    }
-  }
+  // void _navigateToItemDetail(message) {
+  //   final MessageBean item = _itemForMessage(message);
+  //   // Clear away dialogs
+  //   Navigator.popUntil(context, (Route<dynamic> route) => route is PageRoute);
+  //
+  //   if (item.itemId != "1") {
+  //     Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+  //       return const HomePage();
+  //     }));
+  //   }
+  //
+  //   if (!item.route.isCurrent) {
+  //     Navigator.push(context, item.route);
+  //   }
+  // }
 
   versionCheck(context) async {
     final PackageInfo info = await PackageInfo.fromPlatform();
@@ -150,7 +154,7 @@ class _HomePageState extends State<HomePage> {
     return Consumer<ConnectivityProvider>(
       builder: (consumerContext, model, child) {
         if (model.isOnline != null) {
-          return model.isOnline
+          return model.isOnline!
               ? WillPopScope(
                   onWillPop: () async{
                     return await showDialog(
@@ -327,6 +331,7 @@ class _HomePageState extends State<HomePage> {
                             title: const Text("Logout"),
                             leading: const Icon(FontAwesomeIcons.signOutAlt),
                             onTap: () {
+                              _signOut(context);
                               Navigator.of(context).pop();
                             },
                           ),
@@ -373,6 +378,24 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+
+  Future<void> _signOut(BuildContext context) async {
+    ProgressDialog progressDialog = ProgressDialog(
+      context: context,
+      backgroundColor: Colors.grey,
+      textColor: Colors.white,
+    );
+
+    progressDialog.show();
+    var firebaseAuthServices = FirebaseAuthServices();
+
+    try {
+      firebaseAuthServices.signOutWhenGoogle();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }
 

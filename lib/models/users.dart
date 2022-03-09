@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Users {
   String? uid;
   String? name;
@@ -8,27 +10,27 @@ class Users {
   String? idToken;
   int? claimed;
   int? earnedByReferral;
-  String? createdOn;
-  String? lastLogin;
+  Timestamp? createdOn;
+  Timestamp? lastLogin;
   String? referralId;
   String? referredBy;
   int? today;
 
   Users(
-      {required this.uid,
-        required this.name,
-        required this.country,
-        required this.idToken,
-        required this.email,
-        required this.points,
-        required this.profilePhoto,
-        required this.claimed,
-        required this.earnedByReferral,
-        required this.createdOn,
-        required this.lastLogin,
-        required this.referralId,
-        required this.referredBy,
-        required this.today,
+      { this.uid,
+         this.name,
+         this.country,
+         this.idToken,
+         this.email,
+         this.points,
+         this.profilePhoto,
+         this.claimed,
+         this.earnedByReferral,
+         this.createdOn,
+         this.lastLogin,
+         this.referralId,
+         this.referredBy,
+         this.today,
 
 
       });

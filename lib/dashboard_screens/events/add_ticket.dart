@@ -5,7 +5,7 @@ import 'package:crypto_raffle/services/firestore_services.dart';
 import 'package:crypto_raffle/utils/constants.dart';
 import 'package:crypto_raffle/utils/tools.dart';
 import 'package:flutter/material.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:legacy_progress_dialog/legacy_progress_dialog.dart';
 
 //sdhgfhdsgfgsdhgf
 //sjhvjkdf
@@ -314,12 +314,16 @@ class _AddTicketState extends State<AddTicket> {
           ),
           ElevatedButton(
               onPressed: () async {
-                ProgressDialog progressDialog =
-                    ProgressDialog(context, isDismissible: false);
+    ProgressDialog progressDialog = ProgressDialog(
+    context: context,
+    backgroundColor: Colors.grey,
+    textColor: Colors.white,
+    );
+
                 if (selectedRandom.length < 3) {
                   Tools.showToasts("Please Select four digit Lucky Number");
                 } else {
-                  await progressDialog.show();
+                  progressDialog.show();
                   var selectedNumber = int.parse(
                       "${selectedRandom[0]}${selectedRandom[1]}${selectedRandom[2]}${selectedRandom[3]}");
 
@@ -330,7 +334,7 @@ class _AddTicketState extends State<AddTicket> {
                           eventId: widget.liveEvent.eventId!,
                           eventTitle: widget.liveEvent.title!)
                       .then((value) async {
-                    await progressDialog.hide();
+                     progressDialog.dismiss();
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => FinalPaymentPage(
                               coinbaseCommerce: value,

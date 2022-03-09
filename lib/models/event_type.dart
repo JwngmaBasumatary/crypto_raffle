@@ -24,8 +24,8 @@ class EventType {
         entryFee: 0.00001,
         winnerPrize: 0.001,
         referralBonus: 0.0001,
-        eventCollectionName: "Mini_Events",
-        liveEventCollectionName: "Live_Mini_Events"),
+        eventCollectionName: "Crypto_Mini_Events",
+        liveEventCollectionName: "Crypto_Live_Mini_Events"),
     EventType(
         title: "Medium Crypto Event",
         img:
@@ -33,8 +33,8 @@ class EventType {
         entryFee: 0.00001,
         winnerPrize: 0.001,
         referralBonus: 0.0001,
-        eventCollectionName: "Medium_Events",
-        liveEventCollectionName: "Live_Medium_Events"),
+        eventCollectionName: "Crypto_Medium_Events",
+        liveEventCollectionName: "Crypto_Live_Medium_Events"),
     EventType(
         title: "Mega Crypto Event",
         img:
@@ -42,7 +42,7 @@ class EventType {
         entryFee: 0.00001,
         winnerPrize: 0.001,
         referralBonus: 0.0001,
-        eventCollectionName: "Mega_Event",
-        liveEventCollectionName: "Live_Mega_Events"),
+        eventCollectionName: "Crypto_Mega_Events",
+        liveEventCollectionName: "Crypto_Live_Mega_Events"),
   ];
 }
